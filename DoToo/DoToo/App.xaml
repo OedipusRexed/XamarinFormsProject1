@@ -6,6 +6,10 @@
              mc:Ignorable="d"
              x:Class="DoToo.App">
     <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="CompletedColor">#1C8859</Color>
+            <Color x:Key="ActiveColor">#D3D3D3</Color>
+        </ResourceDictionary>
 
     </Application.Resources>
 </Application>
