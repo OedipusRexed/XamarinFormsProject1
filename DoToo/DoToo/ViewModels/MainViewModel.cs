@@ -16,7 +16,12 @@ namespace DoToo.ViewModels
     {
         private readonly ToDoItemRepository repository;
         public ObservableCollection<ToDoItemViewModel> Items { get; set; }
-
+        public string FilterText => ShowAll ? "All" : "Active";
+        public ICommand ToggleFilter => new Command(async () =>
+        {
+            ShowAll = !ShowAll;
+            await LoadData();
+        });
 
         public MainViewModel(ToDoItemRepository repository)
         {
@@ -32,6 +37,11 @@ namespace DoToo.ViewModels
         private async Task LoadData()
         {
             var items = await repository.GetItems();
+
+            if (!ShowAll)
+            {
+                items = items.Where(x => x.Completed == false).ToList();
+            }
             var itemViewModels = items.Select(i => CreateToDoItemViewModel(i));
             Items = new ObservableCollection<ToDoItemViewModel>(itemViewModels);
         }

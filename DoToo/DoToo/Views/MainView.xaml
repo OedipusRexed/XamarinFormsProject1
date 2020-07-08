@@ -20,7 +20,17 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button Text="Toggle Filter" />
+        <Button Style="{StaticResource FilterButton}"
+                Text="{Binding FilterText, StringFormat='Filter: {0}'}"
+                BackgroundColor="{Binding ShowAll, Converter={StaticResource statusColorConverter}}"
+                TextColor="Black"
+                Command="{Binding ToggleFilter}">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button" Binding="{Binding ShowAll}" Value="True">
+                    <Setter Property="TextColor" Value="White"/>
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
 
         <ListView x:Name="ItemsListView"
                   Grid.Row="1"
